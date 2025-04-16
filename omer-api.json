@@ -1,0 +1,63 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "OMER ZÄHLER 5785 – Sonnenuntergang",
+    "version": "1.0.0",
+    "description": "Liefert die Sonnenuntergangszeit (Schkia) für einen bestimmten Ort über sunrise-sunset.org."
+  },
+  "servers": [
+    {
+      "url": "https://api.sunrise-sunset.org"
+    }
+  ],
+  "paths": {
+    "/json": {
+      "get": {
+        "operationId": "getSunTimes",
+        "summary": "Hole Sonnenuntergangszeit für gegebene Koordinaten",
+        "parameters": [
+          {
+            "name": "lat",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "lng",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "formatted",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "enum": [0, 1],
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sonnenuntergang erfolgreich erhalten"
+          }
+        }
+      }
+    }
+  }
+}
