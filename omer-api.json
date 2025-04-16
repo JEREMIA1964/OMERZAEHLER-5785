@@ -1,60 +1,187 @@
 {
-  "openapi": "3.1.0",
+  "openapi": "3.0.0",
   "info": {
-    "title": "OMER ZÄHLER 5785 – Sonnenuntergang",
-    "version": "1.0.0",
-    "description": "Liefert die Sonnenuntergangszeit (Schkia) für einen bestimmten Ort über sunrise-sunset.org."
+    "title": "Sonnenuntergang API für OMER ZÄHLER 5785",
+    "description": "API für präzise Sonnenuntergangszeiten (Schkia) zur kabbalistischen Omer-Zählung",
+    "version": "2.1.0",
+    "contact": {
+      "name": "OMER ZÄHLER 5785"
+    }
   },
   "servers": [
     {
-      "url": "https://api.sunrise-sunset.org"
+      "url": "https://api.sunrise-sunset.org",
+      "description": "Sonnenuntergangs-API Server"
     }
   ],
   "paths": {
     "/json": {
       "get": {
-        "operationId": "getSunTimes",
-        "summary": "Hole Sonnenuntergangszeit für gegebene Koordinaten",
+        "summary": "Genaue Sonnenuntergangszeiten für einen bestimmten Ort und Tag",
+        "description": "Liefert die exakte Zeit des Sonnenuntergangs (Schkia) für einen gegebenen Breiten- und Längengrad sowie Datum",
+        "operationId": "getSunsetTime",
         "parameters": [
           {
             "name": "lat",
             "in": "query",
+            "description": "Breitengrad (Latitude) des Standorts",
             "required": true,
             "schema": {
-              "type": "number"
+              "type": "number",
+              "format": "float",
+              "example": 52.5200
             }
           },
           {
             "name": "lng",
             "in": "query",
+            "description": "Längengrad (Longitude) des Standorts",
             "required": true,
             "schema": {
-              "type": "number"
+              "type": "number",
+              "format": "float",
+              "example": 13.4050
             }
           },
           {
             "name": "date",
             "in": "query",
+            "description": "Datum im Format YYYY-MM-DD (Optional, Standard ist heute)",
             "required": false,
             "schema": {
               "type": "string",
-              "format": "date"
+              "format": "date",
+              "example": "2025-04-13"
             }
           },
           {
             "name": "formatted",
             "in": "query",
+            "description": "Format der Zeitausgabe (0 für komplettes ISO-Format, 1 für 12-Stunden-Format)",
             "required": false,
             "schema": {
               "type": "integer",
               "enum": [0, 1],
-              "default": 0
+              "default": 0,
+              "example": 0
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "Sonnenuntergang erfolgreich erhalten"
+            "description": "Erfolgreiche Anfrage mit Sonnenuntergangszeit",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "results": {
+                      "type": "object",
+                      "properties": {
+                        "sunrise": {
+                          "type": "string",
+                          "example": "4:28:12 AM"
+                        },
+                        "sunset": {
+                          "type": "string",
+                          "example": "8:08:35 PM"
+                        },
+                        "solar_noon": {
+                          "type": "string",
+                          "example": "12:18:22 PM"
+                        },
+                        "day_length": {
+                          "type": "string",
+                          "example": "15:40:23"
+                        },
+                        "civil_twilight_begin": {
+                          "type": "string",
+                          "example": "3:49:38 AM"
+                        },
+                        "civil_twilight_end": {
+                          "type": "string",
+                          "example": "8:47:09 PM"
+                        },
+                        "nautical_twilight_begin": {
+                          "type": "string",
+                          "example": "2:57:22 AM"
+                        },
+                        "nautical_twilight_end": {
+                          "type": "string",
+                          "example": "9:39:24 PM"
+                        },
+                        "astronomical_twilight_begin": {
+                          "type": "string",
+                          "example": "1:43:33 AM"
+                        },
+                        "astronomical_twilight_end": {
+                          "type": "string",
+                          "example": "10:53:14 PM"
+                        }
+                      }
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "OK"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Fehlerhafte Anfrage - Parameter ungültig",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "INVALID_REQUEST"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Serverfehler",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "INTERNAL_ERROR"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "SunsetResponse": {
+        "type": "object",
+        "properties": {
+          "results": {
+            "type": "object",
+            "properties": {
+              "sunset": {
+                "type": "string",
+                "description": "Zeit des Sonnenuntergangs (Schkia)"
+              }
+            }
+          },
+          "status": {
+            "type": "string",
+            "description": "Status der API-Anfrage"
           }
         }
       }
