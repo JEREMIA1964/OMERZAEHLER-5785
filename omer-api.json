@@ -6,8 +6,7 @@
     "version": "2.1.0",
     "contact": {
       "name": "OMER ZÄHLER 5785 – WWAK Schülerprojekt"
-    }
-  ,
+    },
   "servers": [
     {
       "url": "https://api.sunrise-sunset.org",
