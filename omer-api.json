@@ -1,11 +1,14 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "Sonnenuntergang API für OMER ZÄHLER 5785",
-    "description": "API für präzise Sonnenuntergangszeiten (Schkia) zur kabbalistischen Omer-Zählung",
-    "version": "2.1.0",
-    "contact": {
-      "name": "OMER ZÄHLER 5785"
+  "title": "Sonnenuntergang API für OMER ZÄHLER 5785",
+  "description": "Diese API dient der präzisen Berechnung der Sonnenuntergangszeit (Schkia) zur spirituellen Praxis des Omerzählens.\n\nSie ist Teil der WWAK-Initiative:\nWissenschaft der Weisheit der Authentischen Kabbala (WWAK), inspiriert durch die Methode von Bnei Baruch.\n\n⚠️ Hinweis: Diese API ist keine offizielle Entwicklung von Bnei Baruch, sondern ein Schülerprojekt zur Verbreitung der Weisheit über Werkzeuge der Zeit.\n\nWeitere Informationen: https://laitman.de | https://kabbalahmedia.info",
+  "version": "2.1.0",
+  "contact": {
+    "name": "OMER ZÄHLER 5785 – WWAK Schülerprojekt"
+  }
+}
+
     }
   },
   "servers": [
